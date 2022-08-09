@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="col-md-auto">
-                            <img src="<?= base_url() ?>/img/logo.svg" alt="Login Picture" width="300">
+                            <img src="<?= base_url() ?>/img/login.svg" alt="Login Picture" width="300">
                             <p class="text-dark text-center font-weight-bold mt-3">Office of International Affairs</p>
                         </div>
                     </div>

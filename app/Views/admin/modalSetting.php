@@ -1,8 +1,8 @@
-<div class="modal fade" id="modalFormat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalNomor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Status Data</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nomor Whatsapp</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -10,12 +10,12 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <div class="col-lg">
-                        <textarea class="form-control form-control-user" rows="10" id="file_format" placeholder="File Format" name="file_format"><?= $file_format ? $file_format['value'] : '' ?></textarea>
+                        <input type="text" class="form-control" name="value" id="value" value="<?= $setting ? $setting['value'] : '' ?>" />
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-info updateFomat" onclick="updateFormat()">Update</button>
+                <button class="btn btn-info updateSetting" onclick="updateSetting()">Update</button>
                 <button class="btn btn-secondary" data-dismiss="modal">Keluar</button>
             </div>
         </div>
@@ -24,27 +24,26 @@
 
 
 <script>
-    function updateFormat() {
-        console.log('tes', $('#file_format').val());
+    function updateSetting() {
         $.ajax({
             type: "POST",
-            url: "<?= site_url('updateFormat') ?>",
+            url: "<?= site_url('updateSetting') ?>",
             data: {
-                file_format: $('#file_format').val()
+                value: $('#value').val()
             },
             dataType: "JSON",
             beforeSend: function() {
-                $('.updateFomat').attr('disable', 'disabled');
-                $('.updateFomat').html('<i class="fa fa-spin fa-spinner"></i>');
+                $('.updateSetting').attr('disable', 'disabled');
+                $('.updateSetting').html('<i class="fa fa-spin fa-spinner"></i>');
             },
             complete: function() {
-                $('.updateFomat').removeAttr('disable');
-                $('.updateFomat').html('Update');
+                $('.updateSetting').removeAttr('disable');
+                $('.updateSetting').html('Update');
             },
             success: function(res) {
                 if (res.success) {
                     alert(res.success);
-                    $('#modalFormat').modal('hide');
+                    $('#modalNomor').modal('hide');
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {

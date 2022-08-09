@@ -7,6 +7,7 @@
     <h1 class="h3 mb-4 text-gray-800">Student Exchange</h1>
     <div class="card shadow mb-4 err">
         <div class="card-title p-3 text-right">
+            <button type="button" class="btn btn-primary btn-user" title="Contact Us" id="contactUs"><i class="fa fa-whatsapp"></i> Contact Us</button>
             <button type="button" class="btn btn-primary btn-user" title="Format Berkas" id="editFormat"><i class="fas fa-edit"></i> File Format</button>
             <button type="button" class="btn btn-info btn-user" title="Tambah Data" id="tambahData"><i class="fas fa-plus-circle"></i> Tambah Data</button>
         </div>
@@ -44,6 +45,20 @@
                 success: function(res) {
                     $('#viewModal').html(res.data).show();
                     $('#modalFormat').modal('show');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+        });
+        $("#contactUs").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "<?= site_url("editSetting") ?>",
+                dataType: "JSON",
+                success: function(res) {
+                    $('#viewModal').html(res.data).show();
+                    $('#modalNomor').modal('show');
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);

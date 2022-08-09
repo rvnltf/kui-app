@@ -138,12 +138,26 @@ class Admin extends BaseController
     public function editFormat()
     {
         if ($this->request->isAJAX()) {
-            $file_format = new \App\Models\FileFormatModel();
+            $setting = new \App\Models\SettingsModel();
             $data = [
-                "file_format" => $file_format->where('id', 1)->first()
+                "file_format" => $setting->getSetting('file_format')
             ];
             $message = [
                 "data" => view("admin/modalFormat", $data)
+            ];
+            echo json_encode($message);
+        }
+    }
+
+    public function editSetting()
+    {
+        if ($this->request->isAJAX()) {
+            $setting = new \App\Models\SettingsModel();
+            $data = [
+                "setting" => $setting->getSetting('contact_us')
+            ];
+            $message = [
+                "data" => view("admin/modalSetting", $data)
             ];
             echo json_encode($message);
         }
@@ -596,12 +610,27 @@ class Admin extends BaseController
     {
         if ($this->request->isAJAX()) {
             $simpanData = [
-                'file_format' => $this->request->getVar('file_format'),
+                'value' => $this->request->getVar('file_format'),
             ];
 
-            $file_format = new \App\Models\FileFormatModel();
+            $setting = new \App\Models\SettingsModel();
 
-            $file_format->update(1, $simpanData);
+            $setting->update(['key' => 'file_format'], $simpanData);
+
+            $msg = [
+                'success' => 'Data telah berhasil tersimpan.'
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
+    public function updateSetting()
+    {
+        if ($this->request->isAJAX()) {
+            $setting = new \App\Models\SettingsModel();
+
+            $setting->set('value', $this->request->getVar('value'))->where('key', 'contact_us')->update();
 
             $msg = [
                 'success' => 'Data telah berhasil tersimpan.'

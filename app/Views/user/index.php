@@ -8,8 +8,13 @@
 
     <?php if ($exchange) : ?>
         <div class="card shadow mb-4">
-            <div class="card-title pl-3 pt-3">
-                <h1 class="h5 text-gray-900">Your Status Exchange</h1>
+            <div class="card-title pl-3 pt-3 pr-3 row">
+                <div class="col-lg-6">
+                    <h1 class="h5 text-gray-900">Your Status Exchange</h1>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <a href="https://wa.me/<?= $no_wa['value'] ?>" class="btn btn-light"><i class="fa fa-whatsapp"></i> Contact Us</a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">

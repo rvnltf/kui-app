@@ -38,7 +38,7 @@
                     </table>
 
                     <div class="alert alert-secondary mt-4" role="alert">
-                        <?= $file_format['file_format'] ?>
+                        <?= $file_format['value'] ?>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -81,7 +81,7 @@
                     if (res.success) {
                         alert(res.success);
                         $('#modalUpload').modal('hide');
-                        dataFakultas();
+                        window.location.href = '<?= base_url('studentExchanges') ?>';
                     } else {
                         alert(res.error.berkas);
                     }

@@ -19,9 +19,11 @@ class Home extends BaseController
             ];
             return view('admin/index', $data);
         }
+        $setting = new \App\Models\SettingsModel();
         $data = [
             'title' => "KUI - Mahasiswa",
-            'exchange' => $exchange->getStudentAppliedById(user()->id)
+            'exchange' => $exchange->getStudentAppliedById(user()->id),
+            'no_wa' => $setting->getSetting('contact_us')
         ];
         return view('user/index', $data);
     }

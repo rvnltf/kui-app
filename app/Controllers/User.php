@@ -216,14 +216,14 @@ class User extends BaseController
 
             $fakultas = new \App\Models\FakultasModel();
             $departement = new \App\Models\DepartementModel();
-            $format = new \App\Models\FileFormatModel();
+            $format = new \App\Models\SettingsModel();
 
             $data = [
                 'id_fakultas' => $this->request->getVar('id_fakultas'),
                 'id_departement' => $this->request->getVar('id_departement'),
                 'fakultas' => $fakultas->find($this->request->getVar('id_fakultas')),
                 'departement' => $departement->find($this->request->getVar('id_departement')),
-                'file_format' => $format->where('id', 1)->first()
+                'file_format' => $format->getSetting('file_format')
             ];
 
             $message = [

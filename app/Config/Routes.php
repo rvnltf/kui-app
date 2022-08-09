@@ -57,7 +57,9 @@ $routes->get('/getFakultas', 'Admin::getFakultas', ['filter' => 'role:admin']);
 $routes->get('/getDepartement', 'Admin::getDepartement', ['filter' => 'role:admin']);
 $routes->get('/formFakultas', 'Admin::formFakultas', ['filter' => 'role:admin']);
 $routes->get('/modalStatus', 'Admin::modalStatus', ['filter' => 'role:admin']);
+$routes->get('/updateSettingormat', 'Admin::updateSettingormat', ['filter' => 'role:admin']);
 $routes->get('/editFormat', 'Admin::editFormat', ['filter' => 'role:admin']);
+$routes->get('/editSetting', 'Admin::editSetting', ['filter' => 'role:admin']);
 $routes->get('/dataStatus', 'Admin::dataStatus', ['filter' => 'role:admin']);
 $routes->get('/formDepartement', 'Admin::formDepartement', ['filter' => 'role:admin']);
 $routes->post('/addStatus', 'Admin::addStatus', ['filter' => 'role:admin']);
@@ -87,6 +89,7 @@ $routes->post('/updateLoa', 'Admin::updateLoa', ['filter' => 'role:admin']);
 $routes->post('/updateVisa', 'Admin::updateVisa', ['filter' => 'role:admin']);
 $routes->post('/getUsersExchange', 'Admin::getUsersExchange', ['filter' => 'role:admin']);
 $routes->post('/updateFormat', 'Admin::updateFormat', ['filter' => 'role:admin']);
+$routes->post('/updateSetting', 'Admin::updateSetting', ['filter' => 'role:admin']);
 
 /*
  * --------------------------------------------------------------------
