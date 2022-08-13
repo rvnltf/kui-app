@@ -8,7 +8,7 @@ class StudentAppliedModel extends Model
 {
     protected $table = "student_applied";
     protected $useTimestamps = true;
-    protected $allowedFields = ['id_fakultas', 'id_departement', 'id_user', 'status', 'file', 'loa', 'visa'];
+    protected $allowedFields = ['id_fakultas', 'id_departement', 'id_user', 'status', 'file', 'loa', 'visa', 'kitas'];
 
 
     public function getStudentApplied()

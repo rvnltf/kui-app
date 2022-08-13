@@ -87,6 +87,7 @@ $routes->post('/modalUser', 'Admin::modalUser', ['filter' => 'role:admin']);
 $routes->post('/updateUser', 'Admin::updateUser', ['filter' => 'role:admin']);
 $routes->post('/updateLoa', 'Admin::updateLoa', ['filter' => 'role:admin']);
 $routes->post('/updateVisa', 'Admin::updateVisa', ['filter' => 'role:admin']);
+$routes->post('/updateKitas', 'Admin::updateKitas', ['filter' => 'role:admin']);
 $routes->post('/getUsersExchange', 'Admin::getUsersExchange', ['filter' => 'role:admin']);
 $routes->post('/updateFormat', 'Admin::updateFormat', ['filter' => 'role:admin']);
 $routes->post('/updateSetting', 'Admin::updateSetting', ['filter' => 'role:admin']);

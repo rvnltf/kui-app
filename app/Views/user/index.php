@@ -33,6 +33,7 @@
                     <div class="col-sm-2">
                         <?= $exchange['loa'] ? '<a href="' . base_url() . '/LOA/' . $exchange['loa'] . '" class="btn btn-secondary btn-user btn-block">LOA <i class="fas fa-download"></i></a>' : '' ?>
                         <?= $exchange['visa'] ? '<a href="' . base_url() . '/VISA/' . $exchange['visa'] . '" class="btn btn-secondary btn-user btn-block">Visa <i class="fas fa-download"></i></a>' : '' ?>
+                        <?= $exchange['kitas'] ? '<a href="' . base_url() . '/KITAS/' . $exchange['kitas'] . '" class="btn btn-secondary btn-user btn-block">Kitas <i class="fas fa-download"></i></a>' : '' ?>
                     </div>
                 </div>
             </div>

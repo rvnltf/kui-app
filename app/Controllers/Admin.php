@@ -753,6 +753,31 @@ class Admin extends BaseController
         }
     }
 
+    public function updateKitas()
+    {
+        if ($this->request->isAJAX()) {
+            $dataBerkas = $this->request->getFile("kitas");
+            $ext = $dataBerkas->getClientExtension();
+            $fileName = "KITAS-" . date('YmdHis') . "." . $ext;
+
+            $simpanData = [
+                'kitas' => $fileName,
+            ];
+
+            $student = new \App\Models\StudentAppliedModel();
+
+            $dataBerkas->move(ROOTPATH . 'public/KITAS/', $fileName);
+
+            $student->update($this->request->getVar('id'), $simpanData);
+
+            $msg = [
+                'success' => 'Kitas telah diupload.'
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
     public function modalUser()
     {
         if ($this->request->isAJAX()) {

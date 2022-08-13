@@ -1,16 +1,17 @@
 <table class="table table-bordered" id="dataTable">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Departement & Faculty</th>
-            <th>Info Student Exchange Applied</th>
-            <th>File</th>
-            <th>LOA</th>
-            <th>VISA</th>
-            <td>Cost</td>
-            <td>Status</td>
-            <td>Action</td>
+            <th class="text-center align-middle">Date</th>
+            <th class="text-center align-middle">Name</th>
+            <th class="text-center align-middle">Departement & Faculty</th>
+            <th class="text-center align-middle">Info Student Exchange Applied</th>
+            <th class="text-center align-middle">File</th>
+            <th class="text-center align-middle">LOA</th>
+            <th class="text-center align-middle">VISA</th>
+            <th class="text-center align-middle">KITAS</th>
+            <th class="text-center align-middle">Cost</th>
+            <th class="text-center align-middle">Status</th>
+            <th class="text-center align-middle">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +33,10 @@
                 <td>
                     <input type="file" id="uploadVisa<?= $value['id'] ?>" name="uploadVisa" hidden accept="application/pdf" onchange="uploadVisa(<?= $value['id'] ?>)" />
                     <label for="uploadVisa<?= $value['id'] ?>" class="btn btn-info btn-user upload-visa<?= $value['id'] ?>" title="Upload Visa"><i class="fas fa-upload"></i></label>
+                </td>
+                <td>
+                    <input type="file" id="uploadKitas<?= $value['id'] ?>" name="uploadKitas" hidden accept="application/pdf" onchange="uploadKitas(<?= $value['id'] ?>)" />
+                    <label for="uploadKitas<?= $value['id'] ?>" class="btn btn-info btn-user upload-kitas<?= $value['id'] ?>" title="Upload KITAS"><i class="fas fa-upload"></i></label>
                 </td>
                 <td><?= $value["cost"] ?></td>
                 <td>
@@ -172,6 +177,40 @@
             complete: function() {
                 $('.upload-visa' + id).removeAttr('disable');
                 $('.upload-visa' + id).html('<i class="fas fa-upload"></i>');
+            },
+            success: function(res) {
+                if (res.success) {
+                    alert(res.success);
+                    dataExchange();
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $('.viewdata').html(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+    }
+
+    function uploadKitas(id) {
+        var file_data = $('#uploadKitas' + id).prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('kitas', file_data);
+        form_data.append('id', id);
+        $.ajax({
+            type: "POST",
+            url: '<?= site_url("updateKitas") ?>',
+            processData: false,
+            contentType: false,
+            async: false,
+            cache: false,
+            data: form_data,
+            dataType: 'json',
+            beforeSend: function() {
+                $('.upload-kitas' + id).attr('disable', 'disabled');
+                $('.upload-kitas' + id).html('<i class="fa fa-spin fa-spinner"></i>');
+            },
+            complete: function() {
+                $('.upload-kitas' + id).removeAttr('disable');
+                $('.upload-kitas' + id).html('<i class="fas fa-upload"></i>');
             },
             success: function(res) {
                 if (res.success) {
