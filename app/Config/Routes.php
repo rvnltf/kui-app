@@ -91,6 +91,7 @@ $routes->post('/updateKitas', 'Admin::updateKitas', ['filter' => 'role:admin']);
 $routes->post('/getUsersExchange', 'Admin::getUsersExchange', ['filter' => 'role:admin']);
 $routes->post('/updateFormat', 'Admin::updateFormat', ['filter' => 'role:admin']);
 $routes->post('/updateSetting', 'Admin::updateSetting', ['filter' => 'role:admin']);
+$routes->post('/sendEmailNotVerified', 'Admin::sendEmailNotVerified', ['filter' => 'role:admin']);
 
 /*
  * --------------------------------------------------------------------

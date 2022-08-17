@@ -785,6 +785,7 @@ class Admin extends BaseController
 
             $data = [
                 'user' => $user->find($this->request->getVar('id_user')),
+                'email' => $user->find($this->request->getVar('email')),
             ];
 
             $message = [
@@ -816,20 +817,86 @@ class Admin extends BaseController
                     ]
                 ];
             } else {
-                $status = new \Myth\Auth\Models\UserModel();
-                $data = [
-                    'mhs' => $this->request->getVar('mhs'),
-                    'active' => 1,
-                ];
+                $config['mailType'] = 'html';
+                $config['protocol'] = 'smtp';
+                $config['SMTPHost'] = 'kuiunj.fitys.art';
+                $config['SMTPUser'] = 'info.kui@kuiunj.fitys.art';
+                $config['SMTPPass'] = 'KUIUNJ2020';
+                $config['SMTPPort'] = 465;
+                $config['SMTPTimeout'] = 60;
+                $config['SMTPCrypto'] = 'ssl';
 
-                $status->update($this->request->getVar('id_user'), $data);
+                $email = \Config\Services::email();
+                $email->initialize($config);
 
-                $msg = [
-                    'success' => 'Status telah diperbaharui.'
-                ];
+                $email->setFrom('info.kui@kuiunj.fitys.art', 'Office of International Affairs');
+                $email->setTo($this->request->getVar('email'));
+
+                $email->setSubject('Student Exchange Verification');
+                $email->setMessage('Congratulations, your student exchange program account is verified');
+
+                if (!$email->send()) {
+                    $msg = [
+                        'error' => [
+                            'email' => $email->printDebugger(['headers'])
+                        ]
+                    ];
+                } else {
+                    $status = new \Myth\Auth\Models\UserModel();
+                    $data = [
+                        'mhs' => $this->request->getVar('mhs'),
+                        'active' => 1,
+                    ];
+
+                    $status->update($this->request->getVar('id_user'), $data);
+
+                    $msg = [
+                        'success' => 'Status telah diperbaharui.'
+                    ];
+                }
             }
+
             echo json_encode($msg);
         }
+    }
+
+    public function sendEmailNotVerified()
+    {
+        $config['mailType'] = 'html';
+        $config['protocol'] = 'smtp';
+        $config['SMTPHost'] = 'kuiunj.fitys.art';
+        $config['SMTPUser'] = 'info.kui@kuiunj.fitys.art';
+        $config['SMTPPass'] = 'KUIUNJ2020';
+        $config['SMTPPort'] = 465;
+        $config['SMTPTimeout'] = 60;
+        $config['SMTPCrypto'] = 'ssl';
+
+        $email = \Config\Services::email();
+        $email->initialize($config);
+        $email->setFrom('info.kui@kuiunj.fitys.art', 'Office of International Affairs');
+        $email->setTo($this->request->getVar('email'));
+        $email->setSubject('Student Exchange Verification');
+        $email->setMessage('Sorry, your student exchange program account is not verified');
+
+        if (!$email->send()) {
+            $msg = [
+                'error' => [
+                    'email' => 'Gagal mengirim email.'
+                ]
+            ];
+        } else {
+            $status = new \Myth\Auth\Models\UserModel();
+            $data = [
+                'active' => 2,
+            ];
+
+            $status->update($this->request->getVar('id'), $data);
+
+            $msg = [
+                'success' => 'Status telah diperbaharui.'
+            ];
+        }
+        echo json_encode($msg);
     }
 
     public function getUsersExchange()

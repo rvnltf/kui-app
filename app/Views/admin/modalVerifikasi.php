@@ -12,16 +12,17 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <input type="hidden" name="id_user" value="<?= $user->id ?>" />
+                        <input type="hidden" name="email" value="<?= $user->email ?>" />
                         <label for="mhs" class="col-sm-4 col-form-label">Status Mahasiswa</label>
                         <div class="col-sm-8">
                             <select class="form-control " id="mhs" name="mhs">
-                                <option>- Pilih Status -</option>
+                                <option value="">- Pilih Status -</option>
                                 <option value="1">Mahasiswa UNJ</option>
                                 <option value="2">Mahasiswa Asing</option>
                             </select>
+                            <div class="invalid-feedback errorStat"></div>
                         </div>
                     </div>
-                    <div class="invalid-feedback errorStat"></div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-info sendStatus" type="submit">Simpan</button>
@@ -58,14 +59,16 @@
                         dataUser();
                     } else {
                         if (res.error.mhs) {
-                            $('#status').addClass('is-invalid');
+                            $('#mhs').addClass('is-invalid');
                             $('.errorStat').html(res.error.mhs);
                         } else {
-                            $('#status').removeClass('is-invalid');
+                            $('#mhs').removeClass('is-invalid');
                             $('.errorStat').html('');
                         }
+                        if (res.error.email) {
+                            alert(res.error.email);
+                        }
                     }
-
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     $('.viewdata').html(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);

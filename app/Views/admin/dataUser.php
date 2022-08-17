@@ -25,10 +25,10 @@
                         <div class="loading<?= $value->id ?>"></div>
                         <div class="btn-group btn<?= $value->id ?>">
                             <?php if ($value->active == 0) : ?>
-                                <button type="submit" class="btn btn-success btn-user" title="Accept User" onclick="modalUser(<?= $value->id ?>)"><i class="fas fa-check"></i></button>
-                                <button type="submit" class="btn btn-danger btn-user" title="Decline User"><i class="fas fa-times"></i></button>
+                                <button type="submit" class="btn btn-success btn-user" title="Accept User" onclick="modalUser(<?= $value->id ?>, '<?= $value->email ?>')"><i class="fas fa-check"></i></button>
+                                <button type="submit" class="btn btn-danger btn-user declineUser<?= $value->id ?>" title="Decline User" onclick="rejectUser(<?= $value->id ?>, '<?= $value->email ?>')"><i class="fas fa-times"></i></button>
                             <?php else : ?>
-                                <span class="badge badge-pill badge-success">Actived</span>
+                                <span class="badge badge-pill badge-<?= $value->active == 1 ? 'success' : 'danger' ?>"><?= $value->active == 1 ? 'Active' : 'Inactive' ?></span>
                             <?php endif; ?>
                         </div>
                     </td>
@@ -51,6 +51,38 @@
             autoWidth: false,
         });
     });
+
+    function rejectUser(id, email) {
+        var text = "Anda yakin ingin mereject user ini?";
+        if (confirm(text)) {
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url("sendEmailNotVerified") ?>",
+                data: {
+                    id,
+                    email
+                },
+                dataType: "JSON",
+                beforeSend: function() {
+                    $('.declineUser' + id).attr('disable', 'disabled');
+                    $('.declineUser' + id).html('<i class="fa fa-spin fa-spinner"></i>');
+                },
+                complete: function() {
+                    $('.declineUser' + id).removeAttr('disable');
+                    $('.declineUser' + id).html('<i class="fas fa-trash"></i>');
+                },
+                success: function(res) {
+                    if (res.success) {
+                        alert(res.success);
+                        dataUser();
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    $('.viewdata').html(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+        }
+    }
 
     function deleteUser(id) {
         var text = "Anda yakin ingin menghapus user ini?";

@@ -33,13 +33,13 @@
         });
     }
 
-    function modalUser(id_user) {
+    function modalUser(id_user, email) {
         $.ajax({
             type: "POST",
             url: "<?= site_url("modalUser") ?>",
             dataType: "JSON",
             data: {
-                id_user
+                id_user, email
             },
             success: function(res) {
                 $('#viewModal').html(res.data).show();
